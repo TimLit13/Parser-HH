@@ -67,3 +67,10 @@ end
 # #debug
 # puts @vacancies[:compensation].length
 # puts @vacancies[:compensation].inspect
+
+#Найти дату публикации вакансии
+@vacancies[:date_of_publication] = parsed_page.search(".//*[starts-with(@class, 'vacancy-serp-item__publication-date vacancy-serp-item__publication-date_short')]").xpath('text()').to_a
+
+# #debug
+# puts @vacancies[:date_of_publication].length
+# puts @vacancies[:date_of_publication].inspect
