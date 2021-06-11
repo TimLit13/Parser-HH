@@ -48,3 +48,15 @@ parsed_page  = Nokogiri::HTML(unparsed_page)
 #   end
 # end
 # puts @vacancies[:title].length
+
+#Найти наименование компаний
+@vacancies[:company] = parsed_page.search(".//*[starts-with(@data-qa, 'vacancy-serp__vacancy-employer')]").xpath('text()').to_a
+@vacancies[:company].each_with_index do |element, index|
+  if element.to_s.include?('ООО ')
+    @vacancies[:company].delete_at(index)
+  end
+end
+
+# #debug
+# puts @vacancies[:company].length
+# puts @vacancies[:company].inspect
