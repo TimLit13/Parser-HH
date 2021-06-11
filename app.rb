@@ -34,3 +34,17 @@ parsed_page  = Nokogiri::HTML(unparsed_page)
   description: [],
   date_of_publication: []
 }
+
+
+#Найти наименование вакансии
+@vacancies[:title] = parsed_page.search(".//*[starts-with(@data-qa, 'vacancy-serp__vacancy-title')]").xpath('text()').to_a
+# #debug
+# puts parsed_page
+
+# only for ruby vacancies
+# @vacancies[:title].each_with_index do |element, index|
+#   if !element.to_s.include?('ruby')
+#     @vacancies[:title].delete_at(index)
+#   end
+# end
+# puts @vacancies[:title].length
