@@ -1,6 +1,1 @@
-source 'https://rubygems.org'
-gem 'nokogiri'
-gem 'mechanize'
-gem 'translit'
-gem 'httparty'
-gem 'open-uri'
+'/source/*'
