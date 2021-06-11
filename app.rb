@@ -74,3 +74,17 @@ end
 # #debug
 # puts @vacancies[:date_of_publication].length
 # puts @vacancies[:date_of_publication].inspect
+
+@vacancies[:title].length.times do |index|
+  puts '*'*80
+  print "Вакансия: "
+  puts @vacancies[:title][index].to_s.strip
+  print "Компания: "
+  puts @vacancies[:company][index].to_s.strip
+  print "Описание: "
+  puts @vacancies[:description][index].to_s.strip
+  print "Дата публикации вакансии: "
+  puts @vacancies[:date_of_publication][index].to_s.strip
+end
+
+
