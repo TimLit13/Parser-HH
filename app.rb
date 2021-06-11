@@ -18,8 +18,8 @@ if user_search_days < 1 || user_search_days > 30
 end
 
 #Адрес сайта hh.ru с фильтрами по запросу ruby
-url = "https://spb.hh.ru/search/vacancy?area=2&clusters=true&enable_snippets=true&order_by=publication_time&text=#{user_search_word}&search_period=#{user_search_days.to_s}"
-# puts url
+url = "https://spb.hh.ru/search/vacancy?area=2&clusters=true&enable_snippets=true&order_by=publication_time&search_period=#{user_search_days.to_s}&text=#{user_search_word}&experience=between1And3&showClusters=true"
+puts url
 
 #скачиваем страницу с помощью Nokogiri
 unparsed_page = URI.open(url)
@@ -31,7 +31,6 @@ parsed_page  = Nokogiri::HTML(unparsed_page)
   description: [],
   date_of_publication: []
 }
-
 
 #Найти наименование вакансии
 @vacancies[:title] = parsed_page.search(".//*[starts-with(@data-qa, 'vacancy-serp__vacancy-title')]").xpath('text()').to_a
@@ -72,13 +71,12 @@ end
 # puts @vacancies[:date_of_publication].length
 # puts @vacancies[:date_of_publication].inspect
 
-puts "Найдено: #{@vacancies[:title].length} вакансий"
+puts "Найдены первые: #{@vacancies[:title].length}"
 puts "Сколько вывести на экран?"
 user_vacancies_count = gets.strip.to_i
 if user_vacancies_count < 1 || user_vacancies_count > @vacancies[:title].length
   puts "Введеное число не соответствует количеству найденных вакансий."
 end
-
 
 user_vacancies_count.times do |index|
   puts '*'*80
@@ -92,5 +90,3 @@ user_vacancies_count.times do |index|
   print "Дата публикации вакансии: "
   puts @vacancies[:date_of_publication][index].to_s.strip
 end
-
-
