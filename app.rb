@@ -3,26 +3,23 @@ require 'nokogiri'
 require 'httparty'
 require 'open-uri'
 
-# print "Введите наименование интересующей вакансию: "
-# user_search_word = gets.strip.downcase
-# if user_search_word == '' || user_search_word == '\n' || user_search_word == '\s'
-#   puts 'Вы не ввели запрос. Работа программы завершена.'
-#   exit
-# end
+print "Введите наименование интересующей вакансию: "
+user_search_word = gets.strip.downcase
+if user_search_word == '' || user_search_word == '\n' || user_search_word == '\s'
+  puts 'Вы не ввели запрос. Работа программы завершена.'
+  exit
+end
 
-# print "Введите количество дней с момента публикации вакансии: "
-# user_search_days = gets.strip.to_i
-# if user_search_days < 1 || user_search_days > 30
-#   puts 'Вы ввели не правильное количество дней (1..30). Работа программы завершена'
-#   exit
-# end
-
-user_search_word = 'ruby'
-user_search_days = 1
+print "Введите количество дней с момента публикации вакансии: "
+user_search_days = gets.strip.to_i
+if user_search_days < 1 || user_search_days > 30
+  puts 'Вы ввели не правильное количество дней (1..30). Работа программы завершена'
+  exit
+end
 
 #Адрес сайта hh.ru с фильтрами по запросу ruby
 url = "https://spb.hh.ru/search/vacancy?area=2&clusters=true&enable_snippets=true&order_by=publication_time&text=#{user_search_word}&search_period=#{user_search_days.to_s}"
-puts url
+# puts url
 
 #скачиваем страницу с помощью Nokogiri
 unparsed_page = URI.open(url)
@@ -75,9 +72,18 @@ end
 # puts @vacancies[:date_of_publication].length
 # puts @vacancies[:date_of_publication].inspect
 
-@vacancies[:title].length.times do |index|
+puts "Найдено: #{@vacancies[:title].length} вакансий"
+puts "Сколько вывести на экран?"
+user_vacancies_count = gets.strip.to_i
+if user_vacancies_count < 1 || user_vacancies_count > @vacancies[:title].length
+  puts "Введеное число не соответствует количеству найденных вакансий."
+end
+
+
+user_vacancies_count.times do |index|
   puts '*'*80
-  print "Вакансия: "
+  puts "Вакансия #{index+1}: "
+  print "Наименование: "
   puts @vacancies[:title][index].to_s.strip
   print "Компания: "
   puts @vacancies[:company][index].to_s.strip
