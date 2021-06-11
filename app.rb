@@ -60,3 +60,10 @@ end
 # #debug
 # puts @vacancies[:company].length
 # puts @vacancies[:company].inspect
+
+#Найти краткое описание
+@vacancies[:description] = parsed_page.search(".//*[starts-with(@data-qa, 'vacancy-serp__vacancy_snippet_requirement')]").xpath('text()').to_a
+
+# #debug
+# puts @vacancies[:compensation].length
+# puts @vacancies[:compensation].inspect
